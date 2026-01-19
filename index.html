@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FPC Construction - Exceptional Concrete Services for Your Construction Projects in North Augusta, SC">
+    <title>FPC Construction | Expert Concrete Services in North Augusta, SC</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <div class="location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>North Augusta, SC 29860</span>
+                </div>
+                <div class="phone">
+                    <i class="fas fa-phone-alt"></i>
+                    <a href="tel:8032889616">(803) 288-9616</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <img src="images/logo.png" alt="FPC Construction Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="logo-text" style="display: flex;">
+                        <i class="fas fa-hard-hat"></i>
+                        <span>FPC<small>Construction</small></span>
+                    </div>
+                </a>
+                <button class="nav-toggle" aria-label="Toggle navigation">
+                    <span class="hamburger"></span>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                    <li><a href="#faq" class="nav-link">FAQ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Carousel Section -->
+    <section id="home" class="hero-carousel">
+        <div class="carousel-container">
+            <div class="carousel-slides">
+                <!-- Slide 1 -->
+                <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80');">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <h1>Exceptional Concrete Services for Your Construction Projects!</h1>
+                        <p>Professional quality, lasting results for residential and commercial projects</p>
+                        <div class="hero-buttons">
+                            <a href="tel:8032889616" class="btn btn-primary">
+                                <i class="fas fa-phone-alt"></i> Call Now: (803) 288-9616
+                            </a>
+                            <a href="#contact" class="btn btn-secondary">Get a Free Estimate</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1590486803833-1c5dc8ddd4c8?w=1920&q=80');">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <h1>Expert Driveway & Foundation Work</h1>
+                        <p>From new installations to repairs, we handle all your concrete needs</p>
+                        <div class="hero-buttons">
+                            <a href="tel:8032889616" class="btn btn-primary">
+                                <i class="fas fa-phone-alt"></i> Call Now: (803) 288-9616
+                            </a>
+                            <a href="#services" class="btn btn-secondary">View Our Services</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=80');">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <h1>Quality Commercial Construction</h1>
+                        <p>Trusted by businesses throughout the North Augusta area</p>
+                        <div class="hero-buttons">
+                            <a href="tel:8032889616" class="btn btn-primary">
+                                <i class="fas fa-phone-alt"></i> Call Now: (803) 288-9616
+                            </a>
+                            <a href="#gallery" class="btn btn-secondary">See Our Work</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 4 -->
+                <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1621905252472-943afaa20e20?w=1920&q=80');">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <h1>Patios & Outdoor Living Spaces</h1>
+                        <p>Transform your backyard with beautiful, durable concrete work</p>
+                        <div class="hero-buttons">
+                            <a href="tel:8032889616" class="btn btn-primary">
+                                <i class="fas fa-phone-alt"></i> Call Now: (803) 288-9616
+                            </a>
+                            <a href="#contact" class="btn btn-secondary">Request Quote</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Carousel Navigation -->
+            <button class="carousel-btn prev" aria-label="Previous slide">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn next" aria-label="Next slide">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <!-- Carousel Indicators -->
+            <div class="carousel-indicators">
+                <button class="indicator active" data-slide="0" aria-label="Go to slide 1"></button>
+                <button class="indicator" data-slide="1" aria-label="Go to slide 2"></button>
+                <button class="indicator" data-slide="2" aria-label="Go to slide 3"></button>
+                <button class="indicator" data-slide="3" aria-label="Go to slide 4"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span class="stat-number" data-target="15">0</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-project-diagram"></i>
+                    <span class="stat-number" data-target="500">0</span>
+                    <span class="stat-label">Projects Completed</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-smile"></i>
+                    <span class="stat-number" data-target="450">0</span>
+                    <span class="stat-label">Happy Clients</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-award"></i>
+                    <span class="stat-number" data-target="100">0</span>
+                    <span class="stat-label">% Satisfaction</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112c4e5190?w=800&q=80" alt="FPC Construction Team at Work">
+                    <div class="about-badge">
+                        <span class="badge-number">15+</span>
+                        <span class="badge-text">Years of Excellence</span>
+                    </div>
+                </div>
+                <div class="about-content">
+                    <span class="section-subtitle">About Us</span>
+                    <h2>Building Dreams with Quality Concrete</h2>
+                    <p>FPC Construction is North Augusta's premier concrete contractor, specializing in residential and commercial concrete services. With over 15 years of experience, we've built our reputation on quality workmanship, reliability, and exceptional customer service.</p>
+                    <p>Our team of skilled professionals is committed to delivering projects on time and within budget, while exceeding your expectations. From driveways and patios to foundations and commercial slabs, we handle every project with the same attention to detail.</p>
+                    <ul class="about-features">
+                        <li><i class="fas fa-check-circle"></i> Licensed & Insured Contractors</li>
+                        <li><i class="fas fa-check-circle"></i> Free Estimates & Consultations</li>
+                        <li><i class="fas fa-check-circle"></i> Premium Materials & Equipment</li>
+                        <li><i class="fas fa-check-circle"></i> Satisfaction Guaranteed</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Get Started Today</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Our Services</span>
+                <h2>Comprehensive Concrete Solutions</h2>
+                <p>We offer a full range of concrete services to meet all your construction needs</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-road"></i>
+                    </div>
+                    <h3>Driveways</h3>
+                    <p>Custom designed driveways built to last, enhancing your property's curb appeal and functionality.</p>
+                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Foundations</h3>
+                    <p>Solid foundations for residential and commercial buildings using the highest quality materials.</p>
+                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-umbrella-beach"></i>
+                    </div>
+                    <h3>Patios</h3>
+                    <p>Beautiful outdoor living spaces designed and built to your specifications.</p>
+                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-walking"></i>
+                    </div>
+                    <h3>Sidewalks</h3>
+                    <p>Safe, durable sidewalks for residential neighborhoods and commercial properties.</p>
+                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Commercial Slabs</h3>
+                    <p>Heavy-duty commercial concrete slabs built to withstand industrial demands.</p>
+                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Repairs & Restoration</h3>
+                    <p>Expert repair services to restore your existing concrete to like-new condition.</p>
+                    <a href="#contact" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <div class="section-header light">
+                <span class="section-subtitle">Testimonials</span>
+                <h2>What Our Clients Say</h2>
+                <p>Don't just take our word for it - hear from our satisfied customers</p>
+            </div>
+            <div class="testimonials-carousel">
+                <div class="testimonials-track">
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"FPC Construction did an amazing job on our driveway. The crew was professional, finished on time, and the quality is outstanding. Highly recommend!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">JM</div>
+                            <div class="author-info">
+                                <strong>John Mitchell</strong>
+                                <span>Homeowner, North Augusta</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"We hired FPC for our commercial building foundation. Excellent communication throughout the project and superior workmanship. Will definitely use again."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">SR</div>
+                            <div class="author-info">
+                                <strong>Sarah Reynolds</strong>
+                                <span>Business Owner</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"The team transformed our backyard with a beautiful stamped concrete patio. Their attention to detail and craftsmanship exceeded our expectations!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">DT</div>
+                            <div class="author-info">
+                                <strong>David Thompson</strong>
+                                <span>Homeowner, Augusta</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">Our Work</span>
+                <h2>Project Gallery</h2>
+                <p>Browse through our completed projects and see the quality of our work</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item" data-category="driveway">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Concrete Driveway Project">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Driveway</span>
+                        <h4>Residential Driveway</h4>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="patio">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Concrete Patio Project">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Patio</span>
+                        <h4>Backyard Patio</h4>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="commercial">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80" alt="Commercial Foundation">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Commercial</span>
+                        <h4>Office Building Foundation</h4>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="sidewalk">
+                    <img src="https://images.unsplash.com/photo-1555443805-658637491dd4?w=600&q=80" alt="Sidewalk Project">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Sidewalk</span>
+                        <h4>Community Sidewalk</h4>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="driveway">
+                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80" alt="Stamped Concrete">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Driveway</span>
+                        <h4>Stamped Concrete Driveway</h4>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="foundation">
+                    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80" alt="Foundation Work">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Foundation</span>
+                        <h4>Home Foundation</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">FAQ</span>
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our services</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How long does a typical concrete project take?</span>
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Project timelines vary based on scope and complexity. A standard driveway typically takes 2-3 days, while larger commercial projects may take 1-2 weeks. We'll provide a detailed timeline during your free estimate.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Do you offer free estimates?</span>
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! We offer free, no-obligation estimates for all projects. Contact us to schedule a consultation and we'll provide a detailed quote for your specific needs.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What areas do you serve?</span>
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>We serve North Augusta, SC and the surrounding areas including Augusta, GA, Aiken, SC, and nearby communities. Contact us to confirm service in your area.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Are you licensed and insured?</span>
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, FPC Construction is fully licensed and insured. We carry comprehensive liability insurance and workers' compensation to protect you and our team.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What is the curing time for concrete?</span>
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Concrete typically takes 24-48 hours to be walkable and 7 days before light vehicle traffic. Full cure takes approximately 28 days. We'll provide specific care instructions for your project.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Do you offer warranties on your work?</span>
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, we stand behind our work with comprehensive warranties. Specific warranty terms vary by project type and will be detailed in your contract.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <span class="section-subtitle">Contact Us</span>
+                    <h2>Get Your Free Estimate</h2>
+                    <p>Ready to start your project? Contact us today for a free, no-obligation estimate. We're here to answer your questions and help bring your vision to life.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Location</strong>
+                                <span>North Augusta, SC 29860</span>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <strong>Phone</strong>
+                                <a href="tel:8032889616">(803) 288-9616</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <strong>Hours</strong>
+                                <span>Mon - Fri: 7:00 AM - 6:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link" aria-label="Google"><i class="fab fa-google"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form-wrapper">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" placeholder="Email Address" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select id="service" name="service" required>
+                                <option value="">Select Service</option>
+                                <option value="driveway">Driveway</option>
+                                <option value="foundation">Foundation</option>
+                                <option value="patio">Patio</option>
+                                <option value="sidewalk">Sidewalk</option>
+                                <option value="commercial">Commercial Project</option>
+                                <option value="repair">Repair & Restoration</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Tell us about your project..." rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo-text">
+                        <i class="fas fa-hard-hat"></i>
+                        <span>FPC<small>Construction</small></span>
+                    </div>
+                    <p>Your trusted partner for quality concrete construction services in North Augusta and surrounding areas.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-services">
+                    <h4>Our Services</h4>
+                    <ul>
+                        <li><a href="#services">Driveways</a></li>
+                        <li><a href="#services">Foundations</a></li>
+                        <li><a href="#services">Patios</a></li>
+                        <li><a href="#services">Sidewalks</a></li>
+                        <li><a href="#services">Commercial</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> North Augusta, SC 29860</p>
+                    <p><i class="fas fa-phone-alt"></i> <a href="tel:8032889616">(803) 288-9616</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FPC Construction. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ElevenLabs Convai Chatbot Widget -->
+    <elevenlabs-convai agent-id="agent_5801kehtxvkzenwvpc48t3sr5n56"></elevenlabs-convai>
+    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
