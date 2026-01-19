@@ -1,67 +1,129 @@
 /**
- * FPC Construction - Main JavaScript
- * Handles carousel, navigation, animations, and interactions
+ * FPC CONSTRUCTION - Elite JavaScript
+ * TB12 Mentality - Championship Level Interactions
+ * ============================================
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
     // Initialize all modules
+    initPreloader();
+    initScrollProgress();
     initNavigation();
-    initCarousel();
-    initStats();
+    initHeroCarousel();
+    initCounterAnimation();
+    initTestimonialSlider();
+    initProjectFilter();
     initFAQ();
-    initSmoothScroll();
     initContactForm();
-    initScrollAnimations();
+    initBackToTop();
+    initFloatingCTA();
+    initSmoothScroll();
+    initAOS();
 });
 
 /**
- * Mobile Navigation Toggle
+ * Preloader
+ */
+function initPreloader() {
+    const preloader = document.getElementById('preloader');
+
+    if (!preloader) return;
+
+    // Hide preloader when page is loaded
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            preloader.classList.add('hidden');
+            document.body.classList.remove('no-scroll');
+        }, 500);
+    });
+
+    // Fallback - hide after 3 seconds max
+    setTimeout(function() {
+        preloader.classList.add('hidden');
+        document.body.classList.remove('no-scroll');
+    }, 3000);
+}
+
+/**
+ * Scroll Progress Bar
+ */
+function initScrollProgress() {
+    const progressBar = document.querySelector('.scroll-progress');
+
+    if (!progressBar) return;
+
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        progressBar.style.width = scrollPercent + '%';
+    });
+}
+
+/**
+ * Navigation
  */
 function initNavigation() {
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
+    const header = document.getElementById('header');
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
     const navLinks = document.querySelectorAll('.nav-link');
 
+    if (!header) return;
+
+    // Scroll effect for header
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+
+    // Mobile menu toggle
     if (navToggle && navMenu) {
-        navToggle.addEventListener('click', () => {
+        navToggle.addEventListener('click', function() {
             navToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
-            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+            document.body.classList.toggle('no-scroll');
         });
 
         // Close menu when clicking a link
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
+        navLinks.forEach(function(link) {
+            link.addEventListener('click', function() {
                 navToggle.classList.remove('active');
                 navMenu.classList.remove('active');
-                document.body.style.overflow = '';
+                document.body.classList.remove('no-scroll');
             });
         });
 
         // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!navMenu.contains(e.target) && !navToggle.contains(e.target) && navMenu.classList.contains('active')) {
+        document.addEventListener('click', function(e) {
+            if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
                 navToggle.classList.remove('active');
                 navMenu.classList.remove('active');
-                document.body.style.overflow = '';
+                document.body.classList.remove('no-scroll');
             }
         });
     }
 
-    // Active link highlighting based on scroll position
+    // Active link highlighting
     const sections = document.querySelectorAll('section[id]');
 
-    window.addEventListener('scroll', () => {
-        const scrollY = window.pageYOffset;
+    window.addEventListener('scroll', function() {
+        const scrollY = window.pageYOffset + 200;
 
-        sections.forEach(section => {
+        sections.forEach(function(section) {
             const sectionHeight = section.offsetHeight;
-            const sectionTop = section.offsetTop - 100;
+            const sectionTop = section.offsetTop;
             const sectionId = section.getAttribute('id');
-            const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+            const navLink = document.querySelector('.nav-link[href="#' + sectionId + '"]');
 
             if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                navLinks.forEach(link => link.classList.remove('active'));
+                navLinks.forEach(function(link) {
+                    link.classList.remove('active');
+                });
                 if (navLink) navLink.classList.add('active');
             }
         });
@@ -69,36 +131,52 @@ function initNavigation() {
 }
 
 /**
- * Hero Carousel
+ * Hero Carousel with Ken Burns Effect
  */
-function initCarousel() {
-    const slides = document.querySelectorAll('.carousel-slide');
-    const indicators = document.querySelectorAll('.indicator');
+function initHeroCarousel() {
+    const slides = document.querySelectorAll('.hero-slide');
     const prevBtn = document.querySelector('.carousel-btn.prev');
     const nextBtn = document.querySelector('.carousel-btn.next');
+    const progressFill = document.querySelector('.progress-fill');
+    const currentCounter = document.querySelector('.slide-counter .current');
+    const totalCounter = document.querySelector('.slide-counter .total');
 
     if (slides.length === 0) return;
 
     let currentSlide = 0;
     let autoPlayInterval;
-    const autoPlayDelay = 6000; // 6 seconds
+    let progressInterval;
+    const totalSlides = slides.length;
+    const slideDuration = 6000; // 6 seconds
+    const progressStep = 100 / (slideDuration / 50); // Update every 50ms
 
-    // Change slide function
+    // Set total slides counter
+    if (totalCounter) {
+        totalCounter.textContent = String(totalSlides).padStart(2, '0');
+    }
+
+    // Go to specific slide
     function goToSlide(index) {
-        // Remove active class from current slide and indicator
-        slides[currentSlide].classList.remove('active');
-        indicators[currentSlide].classList.remove('active');
+        // Remove active class from all slides
+        slides.forEach(function(slide) {
+            slide.classList.remove('active');
+        });
 
-        // Update current slide index
+        // Update index
         currentSlide = index;
+        if (currentSlide >= totalSlides) currentSlide = 0;
+        if (currentSlide < 0) currentSlide = totalSlides - 1;
 
-        // Handle wrap-around
-        if (currentSlide >= slides.length) currentSlide = 0;
-        if (currentSlide < 0) currentSlide = slides.length - 1;
-
-        // Add active class to new slide and indicator
+        // Add active class to current slide
         slides[currentSlide].classList.add('active');
-        indicators[currentSlide].classList.add('active');
+
+        // Update counter
+        if (currentCounter) {
+            currentCounter.textContent = String(currentSlide + 1).padStart(2, '0');
+        }
+
+        // Reset progress
+        resetProgress();
     }
 
     // Next slide
@@ -111,73 +189,64 @@ function initCarousel() {
         goToSlide(currentSlide - 1);
     }
 
-    // Start auto-play
-    function startAutoPlay() {
-        autoPlayInterval = setInterval(nextSlide, autoPlayDelay);
+    // Progress bar animation
+    function startProgress() {
+        let progress = 0;
+        if (progressFill) progressFill.style.width = '0%';
+
+        progressInterval = setInterval(function() {
+            progress += progressStep;
+            if (progressFill) progressFill.style.width = progress + '%';
+
+            if (progress >= 100) {
+                nextSlide();
+            }
+        }, 50);
     }
 
-    // Stop auto-play
+    // Reset progress
+    function resetProgress() {
+        clearInterval(progressInterval);
+        if (progressFill) progressFill.style.width = '0%';
+        startProgress();
+    }
+
+    // Stop autoplay
     function stopAutoPlay() {
-        clearInterval(autoPlayInterval);
+        clearInterval(progressInterval);
+        if (progressFill) progressFill.style.width = '0%';
     }
 
-    // Reset auto-play (stop and restart)
-    function resetAutoPlay() {
-        stopAutoPlay();
-        startAutoPlay();
-    }
-
-    // Event listeners for navigation buttons
+    // Event listeners
     if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
+        prevBtn.addEventListener('click', function() {
             prevSlide();
-            resetAutoPlay();
         });
     }
 
     if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
+        nextBtn.addEventListener('click', function() {
             nextSlide();
-            resetAutoPlay();
         });
-    }
-
-    // Event listeners for indicators
-    indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => {
-            goToSlide(index);
-            resetAutoPlay();
-        });
-    });
-
-    // Pause auto-play on hover
-    const carousel = document.querySelector('.hero-carousel');
-    if (carousel) {
-        carousel.addEventListener('mouseenter', stopAutoPlay);
-        carousel.addEventListener('mouseleave', startAutoPlay);
     }
 
     // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') {
-            prevSlide();
-            resetAutoPlay();
-        } else if (e.key === 'ArrowRight') {
-            nextSlide();
-            resetAutoPlay();
-        }
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowLeft') prevSlide();
+        if (e.key === 'ArrowRight') nextSlide();
     });
 
-    // Touch/Swipe support
+    // Touch swipe support
     let touchStartX = 0;
     let touchEndX = 0;
+    const heroSection = document.querySelector('.hero');
 
-    if (carousel) {
-        carousel.addEventListener('touchstart', (e) => {
+    if (heroSection) {
+        heroSection.addEventListener('touchstart', function(e) {
             touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
 
-        carousel.addEventListener('touchend', (e) => {
+        heroSection.addEventListener('touchend', function(e) {
             touchEndX = e.changedTouches[0].screenX;
             handleSwipe();
         }, { passive: true });
@@ -189,55 +258,53 @@ function initCarousel() {
 
         if (Math.abs(diff) > swipeThreshold) {
             if (diff > 0) {
-                nextSlide(); // Swipe left - go to next
+                nextSlide();
             } else {
-                prevSlide(); // Swipe right - go to previous
+                prevSlide();
             }
-            resetAutoPlay();
         }
     }
 
-    // Start auto-play on page load
-    startAutoPlay();
+    // Pause on hover (desktop)
+    if (heroSection) {
+        heroSection.addEventListener('mouseenter', stopAutoPlay);
+        heroSection.addEventListener('mouseleave', startProgress);
+    }
+
+    // Start carousel
+    startProgress();
 }
 
 /**
- * Animated Statistics Counter
+ * Counter Animation
  */
-function initStats() {
-    const statNumbers = document.querySelectorAll('.stat-number');
+function initCounterAnimation() {
+    const counters = document.querySelectorAll('.stat-number[data-count]');
 
-    if (statNumbers.length === 0) return;
+    if (counters.length === 0) return;
 
-    const animateCounter = (element) => {
-        const target = parseInt(element.getAttribute('data-target'));
-        const duration = 2000; // 2 seconds
-        const start = 0;
-        const startTime = performance.now();
+    const animateCounter = function(counter) {
+        const target = parseInt(counter.getAttribute('data-count'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
 
-        function updateCounter(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-
-            // Easing function (ease-out)
-            const easeOut = 1 - Math.pow(1 - progress, 3);
-
-            const current = Math.floor(start + (target - start) * easeOut);
-            element.textContent = current.toLocaleString();
-
-            if (progress < 1) {
+        const updateCounter = function() {
+            current += step;
+            if (current < target) {
+                counter.textContent = Math.floor(current);
                 requestAnimationFrame(updateCounter);
             } else {
-                element.textContent = target.toLocaleString();
+                counter.textContent = target;
             }
-        }
+        };
 
-        requestAnimationFrame(updateCounter);
+        updateCounter();
     };
 
-    // Intersection Observer for triggering animation when visible
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+    // Intersection Observer for triggering animation
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
             if (entry.isIntersecting) {
                 animateCounter(entry.target);
                 observer.unobserve(entry.target);
@@ -245,7 +312,122 @@ function initStats() {
         });
     }, { threshold: 0.5 });
 
-    statNumbers.forEach(stat => observer.observe(stat));
+    counters.forEach(function(counter) {
+        observer.observe(counter);
+    });
+}
+
+/**
+ * Testimonial Slider
+ */
+function initTestimonialSlider() {
+    const track = document.getElementById('testimonialsTrack');
+    const cards = document.querySelectorAll('.testimonial-card');
+    const prevBtn = document.querySelector('.testimonials-section .testimonial-btn.prev');
+    const nextBtn = document.querySelector('.testimonials-section .testimonial-btn.next');
+    const dotsContainer = document.querySelector('.testimonial-dots');
+
+    if (!track || cards.length === 0) return;
+
+    let currentIndex = 0;
+    const totalCards = cards.length;
+
+    // Create dots
+    if (dotsContainer) {
+        for (let i = 0; i < totalCards; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('testimonial-dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', function() {
+                goToSlide(i);
+            });
+            dotsContainer.appendChild(dot);
+        }
+    }
+
+    const dots = document.querySelectorAll('.testimonial-dot');
+
+    function updateSlider() {
+        track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
+
+        // Update dots
+        dots.forEach(function(dot, index) {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+    }
+
+    function goToSlide(index) {
+        currentIndex = index;
+        if (currentIndex >= totalCards) currentIndex = 0;
+        if (currentIndex < 0) currentIndex = totalCards - 1;
+        updateSlider();
+    }
+
+    function nextSlide() {
+        goToSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+        goToSlide(currentIndex - 1);
+    }
+
+    // Event listeners
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+
+    // Auto-advance every 5 seconds
+    setInterval(nextSlide, 5000);
+
+    // Touch swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    track.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    track.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) nextSlide();
+            else prevSlide();
+        }
+    }, { passive: true });
+}
+
+/**
+ * Project Filter
+ */
+function initProjectFilter() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    if (filterBtns.length === 0 || projectCards.length === 0) return;
+
+    filterBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            // Update active button
+            filterBtns.forEach(function(b) {
+                b.classList.remove('active');
+            });
+            btn.classList.add('active');
+
+            // Filter projects
+            const filter = btn.getAttribute('data-filter');
+
+            projectCards.forEach(function(card) {
+                const category = card.getAttribute('data-category');
+
+                if (filter === 'all' || category === filter) {
+                    card.classList.remove('hidden');
+                    card.style.animation = 'fadeIn 0.5s ease forwards';
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    });
 }
 
 /**
@@ -254,18 +436,19 @@ function initStats() {
 function initFAQ() {
     const faqItems = document.querySelectorAll('.faq-item');
 
-    faqItems.forEach(item => {
+    faqItems.forEach(function(item) {
         const question = item.querySelector('.faq-question');
 
         if (question) {
-            question.addEventListener('click', () => {
-                // Check if this item is already active
+            question.addEventListener('click', function() {
                 const isActive = item.classList.contains('active');
 
-                // Close all FAQ items
-                faqItems.forEach(faq => faq.classList.remove('active'));
+                // Close all items
+                faqItems.forEach(function(faq) {
+                    faq.classList.remove('active');
+                });
 
-                // If the clicked item wasn't active, open it
+                // Open clicked item if it wasn't active
                 if (!isActive) {
                     item.classList.add('active');
                 }
@@ -275,16 +458,143 @@ function initFAQ() {
 }
 
 /**
- * Smooth Scrolling for Navigation Links
+ * Contact Form
+ */
+function initContactForm() {
+    const form = document.getElementById('contactForm');
+
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalHTML = submitBtn.innerHTML;
+
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Sending...</span>';
+        submitBtn.disabled = true;
+
+        // Simulate form submission
+        setTimeout(function() {
+            // Show success message
+            showNotification('Thank you! Your message has been sent successfully. We\'ll be in touch soon!', 'success');
+
+            // Reset form
+            form.reset();
+
+            // Restore button
+            submitBtn.innerHTML = originalHTML;
+            submitBtn.disabled = false;
+        }, 1500);
+    });
+
+    // Form validation feedback
+    const inputs = form.querySelectorAll('input, select, textarea');
+
+    inputs.forEach(function(input) {
+        input.addEventListener('blur', function() {
+            if (input.required && !input.value) {
+                input.style.borderColor = '#ef4444';
+            } else {
+                input.style.borderColor = '';
+            }
+        });
+
+        input.addEventListener('input', function() {
+            input.style.borderColor = '';
+        });
+    });
+}
+
+/**
+ * Notification Toast
+ */
+function showNotification(message, type) {
+    // Remove existing notifications
+    const existing = document.querySelector('.notification-toast');
+    if (existing) existing.remove();
+
+    // Create notification
+    const notification = document.createElement('div');
+    notification.className = 'notification-toast notification-' + type;
+    notification.innerHTML = '<i class="fas ' + (type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle') + '"></i><span>' + message + '</span>';
+
+    // Styles
+    notification.style.cssText = 'position: fixed; top: 120px; right: 24px; background: ' + (type === 'success' ? '#22c55e' : '#ef4444') + '; color: white; padding: 16px 24px; border-radius: 12px; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 10000; animation: slideIn 0.4s ease; max-width: 400px; font-size: 14px;';
+
+    // Add animation styles
+    if (!document.getElementById('notification-styles')) {
+        const style = document.createElement('style');
+        style.id = 'notification-styles';
+        style.textContent = '@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } } @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } } @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }';
+        document.head.appendChild(style);
+    }
+
+    document.body.appendChild(notification);
+
+    // Remove after 5 seconds
+    setTimeout(function() {
+        notification.style.animation = 'slideOut 0.4s ease forwards';
+        setTimeout(function() {
+            notification.remove();
+        }, 400);
+    }, 5000);
+}
+
+/**
+ * Back to Top Button
+ */
+function initBackToTop() {
+    const backToTop = document.getElementById('backToTop');
+
+    if (!backToTop) return;
+
+    // Show/hide button based on scroll position
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 500) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+
+    // Scroll to top on click
+    backToTop.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+/**
+ * Floating CTA Button
+ */
+function initFloatingCTA() {
+    const floatingCTA = document.querySelector('.floating-cta');
+
+    if (!floatingCTA) return;
+
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 800) {
+            floatingCTA.classList.add('visible');
+        } else {
+            floatingCTA.classList.remove('visible');
+        }
+    });
+}
+
+/**
+ * Smooth Scroll for anchor links
  */
 function initSmoothScroll() {
     const links = document.querySelectorAll('a[href^="#"]');
 
-    links.forEach(link => {
-        link.addEventListener('click', (e) => {
-            const href = link.getAttribute('href');
+    links.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
 
-            // Skip if it's just "#"
             if (href === '#') return;
 
             const target = document.querySelector(href);
@@ -292,7 +602,7 @@ function initSmoothScroll() {
             if (target) {
                 e.preventDefault();
 
-                const headerHeight = document.querySelector('.header').offsetHeight;
+                const headerHeight = document.getElementById('header').offsetHeight;
                 const targetPosition = target.offsetTop - headerHeight;
 
                 window.scrollTo({
@@ -305,160 +615,66 @@ function initSmoothScroll() {
 }
 
 /**
- * Contact Form Handling
+ * Initialize AOS (Animate On Scroll)
  */
-function initContactForm() {
-    const form = document.getElementById('contactForm');
-
-    if (form) {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-
-            // Show loading state
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            submitBtn.disabled = true;
-
-            // Collect form data
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-
-            // Simulate form submission (replace with actual API call)
-            try {
-                await new Promise(resolve => setTimeout(resolve, 1500));
-
-                // Show success message
-                showNotification('Thank you! Your message has been sent. We\'ll be in touch soon.', 'success');
-                form.reset();
-            } catch (error) {
-                showNotification('Oops! Something went wrong. Please try again.', 'error');
-            } finally {
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            }
+function initAOS() {
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 50,
+            disable: 'mobile'
         });
     }
 }
 
 /**
- * Show Notification Toast
+ * Utility: Throttle function
  */
-function showNotification(message, type = 'success') {
-    // Remove existing notification
-    const existing = document.querySelector('.notification');
-    if (existing) existing.remove();
-
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
-        <span>${message}</span>
-    `;
-
-    // Add styles
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: ${type === 'success' ? '#28a745' : '#dc3545'};
-        color: white;
-        padding: 15px 25px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        z-index: 9999;
-        animation: slideIn 0.3s ease;
-        max-width: 400px;
-    `;
-
-    // Add animation keyframes if not exists
-    if (!document.getElementById('notification-styles')) {
-        const style = document.createElement('style');
-        style.id = 'notification-styles';
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100%); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
-            }
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-
-    document.body.appendChild(notification);
-
-    // Remove notification after 5 seconds
-    setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease forwards';
-        setTimeout(() => notification.remove(), 300);
-    }, 5000);
-}
-
-/**
- * Scroll Animations using Intersection Observer
- */
-function initScrollAnimations() {
-    const animatedElements = document.querySelectorAll(
-        '.service-card, .testimonial-card, .gallery-item, .about-content, .about-image, .contact-info, .contact-form-wrapper'
-    );
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
-
-    animatedElements.forEach((el, index) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-        observer.observe(el);
-    });
-}
-
-/**
- * Header scroll effect
- */
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('.header');
-    if (header) {
-        if (window.scrollY > 100) {
-            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
-        } else {
-            header.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(function() {
+                inThrottle = false;
+            }, limit);
         }
-    }
-});
-
-/**
- * Preload images for carousel
- */
-function preloadImages() {
-    const slides = document.querySelectorAll('.carousel-slide');
-    slides.forEach(slide => {
-        const bgImage = slide.style.backgroundImage;
-        if (bgImage) {
-            const url = bgImage.replace(/url\(['"]?([^'"]+)['"]?\)/, '$1');
-            const img = new Image();
-            img.src = url;
-        }
-    });
+    };
 }
 
-// Preload carousel images on page load
-window.addEventListener('load', preloadImages);
+/**
+ * Utility: Debounce function
+ */
+function debounce(func, wait) {
+    let timeout;
+    return function() {
+        const context = this;
+        const args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+            func.apply(context, args);
+        }, wait);
+    };
+}
+
+// Optimized scroll event handling
+window.addEventListener('scroll', throttle(function() {
+    // All scroll-based functionality is handled in their respective functions
+}, 16));
+
+// Handle window resize
+window.addEventListener('resize', debounce(function() {
+    // Reinitialize AOS on resize
+    if (typeof AOS !== 'undefined') {
+        AOS.refresh();
+    }
+}, 250));
+
+// Console branding
+console.log('%c FPC CONSTRUCTION ', 'background: #d4a017; color: #000; padding: 10px 20px; font-size: 16px; font-weight: bold;');
+console.log('%c Built with excellence - TB12 mentality ', 'color: #6b6b6b; font-size: 12px;');
